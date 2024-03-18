@@ -1,0 +1,502 @@
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 1
+
+
+   1              		.cpu cortex-m0plus
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"adc_tim_trig_modified.c"
+  14              		.text
+  15              		.global	__aeabi_uidiv
+  16              		.section	.rodata.str1.1,"aMS",%progbits,1
+  17              	.LC1:
+  18 0000 43682564 		.ascii	"Ch%d = %d\011\000"
+  18      203D2025 
+  18      640900
+  19              	.LC3:
+  20 000b 43682564 		.ascii	"Ch%d = %d\012\000"
+  20      203D2025 
+  20      640A00
+  21              		.text
+  22              		.align	1
+  23              		.global	ADC0_SEQA_IRQHandler
+  24              		.syntax unified
+  25              		.code	16
+  26              		.thumb_func
+  28              	ADC0_SEQA_IRQHandler:
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 70B5     		push	{r4, r5, r6, lr}
+  32 0002 1B4E     		ldr	r6, .L13
+  33 0004 B36E     		ldr	r3, [r6, #104]
+  34 0006 DB00     		lsls	r3, r3, #3
+  35 0008 31D5     		bpl	.L1
+  36 000a 1A4C     		ldr	r4, .L13+4
+  37 000c 3000     		movs	r0, r6
+  38 000e 2100     		movs	r1, r4
+  39 0010 FFF7FEFF 		bl	ADC_GetConvSeqAGlobalConversionResult
+  40              	.L3:
+  41 0014 2200     		movs	r2, r4
+  42 0016 0021     		movs	r1, #0
+  43 0018 1548     		ldr	r0, .L13
+  44 001a FFF7FEFF 		bl	ADC_GetChannelConversionResult
+  45 001e 0028     		cmp	r0, #0
+  46 0020 F8D0     		beq	.L3
+  47 0022 2068     		ldr	r0, [r4]
+  48 0024 144D     		ldr	r5, .L13+8
+  49 0026 1549     		ldr	r1, .L13+12
+  50 0028 6843     		muls	r0, r5
+  51 002a FFF7FEFF 		bl	__aeabi_uidiv
+  52 002e 144B     		ldr	r3, .L13+16
+  53 0030 0200     		movs	r2, r0
+  54 0032 A168     		ldr	r1, [r4, #8]
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 2
+
+
+  55 0034 1800     		movs	r0, r3
+  56 0036 FFF7FEFF 		bl	DbgConsole_Printf
+  57 003a 2100     		movs	r1, r4
+  58 003c 0C48     		ldr	r0, .L13
+  59 003e FFF7FEFF 		bl	ADC_GetConvSeqAGlobalConversionResult
+  60              	.L4:
+  61 0042 2200     		movs	r2, r4
+  62 0044 0121     		movs	r1, #1
+  63 0046 0A48     		ldr	r0, .L13
+  64 0048 1032     		adds	r2, r2, #16
+  65 004a FFF7FEFF 		bl	ADC_GetChannelConversionResult
+  66 004e 0028     		cmp	r0, #0
+  67 0050 F7D0     		beq	.L4
+  68 0052 2069     		ldr	r0, [r4, #16]
+  69 0054 0949     		ldr	r1, .L13+12
+  70 0056 6843     		muls	r0, r5
+  71 0058 FFF7FEFF 		bl	__aeabi_uidiv
+  72 005c 094B     		ldr	r3, .L13+20
+  73 005e 0200     		movs	r2, r0
+  74 0060 A169     		ldr	r1, [r4, #24]
+  75 0062 1800     		movs	r0, r3
+  76 0064 FFF7FEFF 		bl	DbgConsole_Printf
+  77 0068 8023     		movs	r3, #128
+  78 006a 5B05     		lsls	r3, r3, #21
+  79 006c B366     		str	r3, [r6, #104]
+  80              	.L1:
+  81              		@ sp needed
+  82 006e 70BD     		pop	{r4, r5, r6, pc}
+  83              	.L14:
+  84              		.align	2
+  85              	.L13:
+  86 0070 00C00140 		.word	1073856512
+  87 0074 00000000 		.word	.LANCHOR0
+  88 0078 E30C0000 		.word	3299
+  89 007c FF0F0000 		.word	4095
+  90 0080 00000000 		.word	.LC1
+  91 0084 0B000000 		.word	.LC3
+  93              		.align	1
+  94              		.global	clock_init
+  95              		.syntax unified
+  96              		.code	16
+  97              		.thumb_func
+  99              	clock_init:
+ 100              		@ args = 0, pretend = 0, frame = 8
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102 0088 8E23     		movs	r3, #142
+ 103 008a 73B5     		push	{r0, r1, r4, r5, r6, lr}
+ 104 008c 0121     		movs	r1, #1
+ 105              		@ sp needed
+ 106 008e 0225     		movs	r5, #2
+ 107 0090 0026     		movs	r6, #0
+ 108 0092 0F4C     		ldr	r4, .L16
+ 109 0094 9B00     		lsls	r3, r3, #2
+ 110 0096 E258     		ldr	r2, [r4, r3]
+ 111 0098 6846     		mov	r0, sp
+ 112 009a 8A43     		bics	r2, r1
+ 113 009c E250     		str	r2, [r4, r3]
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 3
+
+
+ 114 009e E258     		ldr	r2, [r4, r3]
+ 115 00a0 AA43     		bics	r2, r5
+ 116 00a2 E250     		str	r2, [r4, r3]
+ 117 00a4 0B4B     		ldr	r3, .L16+4
+ 118 00a6 1E60     		str	r6, [r3]
+ 119 00a8 6B46     		mov	r3, sp
+ 120 00aa 1E71     		strb	r6, [r3, #4]
+ 121 00ac 0A4B     		ldr	r3, .L16+8
+ 122 00ae 0093     		str	r3, [sp]
+ 123 00b0 FFF7FEFF 		bl	CLOCK_InitSystemPll
+ 124 00b4 C020     		movs	r0, #192
+ 125 00b6 A840     		lsls	r0, r0, r5
+ 126 00b8 FFF7FEFF 		bl	CLOCK_SetMainClkSrc
+ 127 00bc FF22     		movs	r2, #255
+ 128 00be 074B     		ldr	r3, .L16+12
+ 129 00c0 1E60     		str	r6, [r3]
+ 130 00c2 A36F     		ldr	r3, [r4, #120]
+ 131 00c4 9343     		bics	r3, r2
+ 132 00c6 1D43     		orrs	r5, r3
+ 133 00c8 A567     		str	r5, [r4, #120]
+ 134 00ca FFF7FEFF 		bl	SystemCoreClockUpdate
+ 135 00ce 73BD     		pop	{r0, r1, r4, r5, r6, pc}
+ 136              	.L17:
+ 137              		.align	2
+ 138              	.L16:
+ 139 00d0 00800440 		.word	1074036736
+ 140 00d4 40800440 		.word	1074036800
+ 141 00d8 006CDC02 		.word	48000000
+ 142 00dc E0800440 		.word	1074036960
+ 144              		.align	1
+ 145              		.global	ADC_Configuration
+ 146              		.syntax unified
+ 147              		.code	16
+ 148              		.thumb_func
+ 150              	ADC_Configuration:
+ 151              		@ args = 0, pretend = 0, frame = 24
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+ 153 00e0 0123     		movs	r3, #1
+ 154 00e2 30B5     		push	{r4, r5, lr}
+ 155 00e4 87B0     		sub	sp, sp, #28
+ 156 00e6 0193     		str	r3, [sp, #4]
+ 157 00e8 0023     		movs	r3, #0
+ 158 00ea 174C     		ldr	r4, .L25
+ 159 00ec 01A9     		add	r1, sp, #4
+ 160 00ee 0500     		movs	r5, r0
+ 161 00f0 2000     		movs	r0, r4
+ 162 00f2 8B80     		strh	r3, [r1, #4]
+ 163 00f4 FFF7FEFF 		bl	ADC_Init
+ 164 00f8 0323     		movs	r3, #3
+ 165 00fa 0393     		str	r3, [sp, #12]
+ 166 00fc 0493     		str	r3, [sp, #16]
+ 167 00fe 134B     		ldr	r3, .L25+4
+ 168 0100 2000     		movs	r0, r4
+ 169 0102 03A9     		add	r1, sp, #12
+ 170 0104 0593     		str	r3, [sp, #20]
+ 171 0106 FFF7FEFF 		bl	ADC_SetConvSeqAConfig
+ 172 010a 8023     		movs	r3, #128
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 4
+
+
+ 173 010c A268     		ldr	r2, [r4, #8]
+ 174 010e 1B06     		lsls	r3, r3, #24
+ 175 0110 1343     		orrs	r3, r2
+ 176 0112 A360     		str	r3, [r4, #8]
+ 177 0114 8023     		movs	r3, #128
+ 178 0116 A268     		ldr	r2, [r4, #8]
+ 179 0118 DB04     		lsls	r3, r3, #19
+ 180 011a 1343     		orrs	r3, r2
+ 181 011c 2900     		movs	r1, r5
+ 182 011e 2000     		movs	r0, r4
+ 183 0120 A360     		str	r3, [r4, #8]
+ 184 0122 FFF7FEFF 		bl	ADC_GetConvSeqAGlobalConversionResult
+ 185              	.L19:
+ 186 0126 2A00     		movs	r2, r5
+ 187 0128 0021     		movs	r1, #0
+ 188 012a 0748     		ldr	r0, .L25
+ 189 012c FFF7FEFF 		bl	ADC_GetChannelConversionResult
+ 190 0130 0028     		cmp	r0, #0
+ 191 0132 F8D0     		beq	.L19
+ 192              	.L20:
+ 193 0134 2A00     		movs	r2, r5
+ 194 0136 0121     		movs	r1, #1
+ 195 0138 0348     		ldr	r0, .L25
+ 196 013a 1032     		adds	r2, r2, #16
+ 197 013c FFF7FEFF 		bl	ADC_GetChannelConversionResult
+ 198 0140 0028     		cmp	r0, #0
+ 199 0142 F7D0     		beq	.L20
+ 200 0144 07B0     		add	sp, sp, #28
+ 201              		@ sp needed
+ 202 0146 30BD     		pop	{r4, r5, pc}
+ 203              	.L26:
+ 204              		.align	2
+ 205              	.L25:
+ 206 0148 00C00140 		.word	1073856512
+ 207 014c 01000001 		.word	16777217
+ 209              		.align	1
+ 210              		.global	uart_init
+ 211              		.syntax unified
+ 212              		.code	16
+ 213              		.thumb_func
+ 215              	uart_init:
+ 216              		@ args = 0, pretend = 0, frame = 16
+ 217              		@ frame_needed = 0, uses_anonymous_args = 0
+ 218 0150 7FB5     		push	{r0, r1, r2, r3, r4, r5, r6, lr}
+ 219 0152 8023     		movs	r3, #128
+ 220              		@ sp needed
+ 221 0154 0126     		movs	r6, #1
+ 222 0156 104A     		ldr	r2, .L28
+ 223 0158 DB01     		lsls	r3, r3, #7
+ 224 015a D16F     		ldr	r1, [r2, #124]
+ 225 015c E125     		movs	r5, #225
+ 226 015e 0B43     		orrs	r3, r1
+ 227 0160 D367     		str	r3, [r2, #124]
+ 228 0162 0E4B     		ldr	r3, .L28+4
+ 229 0164 2D02     		lsls	r5, r5, #8
+ 230 0166 1E60     		str	r6, [r3]
+ 231 0168 FFF7FEFF 		bl	CLOCK_GetUart0ClkFreq
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 5
+
+
+ 232 016c 0400     		movs	r4, r0
+ 233 016e 6846     		mov	r0, sp
+ 234 0170 FFF7FEFF 		bl	USART_GetDefaultConfig
+ 235 0174 0223     		movs	r3, #2
+ 236 0176 6A46     		mov	r2, sp
+ 237 0178 FF33     		adds	r3, r3, #255
+ 238 017a 6946     		mov	r1, sp
+ 239 017c 9380     		strh	r3, [r2, #4]
+ 240 017e 0848     		ldr	r0, .L28+8
+ 241 0180 2200     		movs	r2, r4
+ 242 0182 0095     		str	r5, [sp]
+ 243 0184 FFF7FEFF 		bl	USART_Init
+ 244 0188 3200     		movs	r2, r6
+ 245 018a 2900     		movs	r1, r5
+ 246 018c 2300     		movs	r3, r4
+ 247 018e 0020     		movs	r0, #0
+ 248 0190 FFF7FEFF 		bl	DbgConsole_Init
+ 249 0194 7FBD     		pop	{r0, r1, r2, r3, r4, r5, r6, pc}
+ 250              	.L29:
+ 251 0196 C046     		.align	2
+ 252              	.L28:
+ 253 0198 04800440 		.word	1074036740
+ 254 019c 94800440 		.word	1074036884
+ 255 01a0 00400640 		.word	1074151424
+ 257              		.align	1
+ 258              		.global	SCT_Configuration
+ 259              		.syntax unified
+ 260              		.code	16
+ 261              		.thumb_func
+ 263              	SCT_Configuration:
+ 264              		@ args = 0, pretend = 0, frame = 16
+ 265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 266 01a4 70B5     		push	{r4, r5, r6, lr}
+ 267 01a6 86B0     		sub	sp, sp, #24
+ 268 01a8 03AD     		add	r5, sp, #12
+ 269 01aa 2800     		movs	r0, r5
+ 270 01ac FFF7FEFF 		bl	SCTIMER_GetDefaultConfig
+ 271 01b0 0026     		movs	r6, #0
+ 272 01b2 EF23     		movs	r3, #239
+ 273 01b4 154C     		ldr	r4, .L31
+ 274 01b6 2900     		movs	r1, r5
+ 275 01b8 2000     		movs	r0, r4
+ 276 01ba 2E80     		strh	r6, [r5]
+ 277 01bc EE70     		strb	r6, [r5, #3]
+ 278 01be 6B71     		strb	r3, [r5, #5]
+ 279 01c0 FFF7FEFF 		bl	SCTIMER_Init
+ 280 01c4 0125     		movs	r5, #1
+ 281 01c6 8021     		movs	r1, #128
+ 282 01c8 02AB     		add	r3, sp, #8
+ 283 01ca 0193     		str	r3, [sp, #4]
+ 284 01cc 0095     		str	r5, [sp]
+ 285 01ce 3300     		movs	r3, r6
+ 286 01d0 2000     		movs	r0, r4
+ 287 01d2 0F4A     		ldr	r2, .L31+4
+ 288 01d4 4901     		lsls	r1, r1, #5
+ 289 01d6 FFF7FEFF 		bl	SCTIMER_CreateAndScheduleEvent
+ 290 01da 2000     		movs	r0, r4
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 6
+
+
+ 291 01dc 029A     		ldr	r2, [sp, #8]
+ 292 01de 0321     		movs	r1, #3
+ 293 01e0 FFF7FEFF 		bl	SCTIMER_SetupOutputToggleAction
+ 294 01e4 029B     		ldr	r3, [sp, #8]
+ 295 01e6 C121     		movs	r1, #193
+ 296 01e8 9D40     		lsls	r5, r5, r3
+ 297 01ea 2289     		ldrh	r2, [r4, #8]
+ 298 01ec DB00     		lsls	r3, r3, #3
+ 299 01ee 2A43     		orrs	r2, r5
+ 300 01f0 92B2     		uxth	r2, r2
+ 301 01f2 2281     		strh	r2, [r4, #8]
+ 302 01f4 1B19     		adds	r3, r3, r4
+ 303 01f6 8900     		lsls	r1, r1, #2
+ 304 01f8 5A58     		ldr	r2, [r3, r1]
+ 305 01fa 0648     		ldr	r0, .L31+8
+ 306 01fc 0240     		ands	r2, r0
+ 307 01fe 5A50     		str	r2, [r3, r1]
+ 308 0200 0422     		movs	r2, #4
+ 309 0202 A388     		ldrh	r3, [r4, #4]
+ 310 0204 9343     		bics	r3, r2
+ 311 0206 A380     		strh	r3, [r4, #4]
+ 312 0208 06B0     		add	sp, sp, #24
+ 313              		@ sp needed
+ 314 020a 70BD     		pop	{r4, r5, r6, pc}
+ 315              	.L32:
+ 316              		.align	2
+ 317              	.L31:
+ 318 020c 00400050 		.word	1342193664
+ 319 0210 50C30000 		.word	50000
+ 320 0214 FFFF9FFF 		.word	-6291457
+ 322              		.section	.rodata.str1.1
+ 323              	.LC6:
+ 324 0016 41444320 		.ascii	"ADC interrupt example.\015\012\000"
+ 324      696E7465 
+ 324      72727570 
+ 324      74206578 
+ 324      616D706C 
+ 325              	.LC8:
+ 326 002f 41444320 		.ascii	"ADC Calibration Done.\015\012\000"
+ 326      43616C69 
+ 326      62726174 
+ 326      696F6E20 
+ 326      446F6E65 
+ 327              	.LC10:
+ 328 0047 41444320 		.ascii	"ADC Calibration Failed.\015\012\000"
+ 328      43616C69 
+ 328      62726174 
+ 328      696F6E20 
+ 328      4661696C 
+ 329              	.LC13:
+ 330 0061 436F6E66 		.ascii	"Configuration Done.\012\000"
+ 330      69677572 
+ 330      6174696F 
+ 330      6E20446F 
+ 330      6E652E0A 
+ 331              		.section	.text.startup,"ax",%progbits
+ 332              		.align	1
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 7
+
+
+ 333              		.global	main
+ 334              		.syntax unified
+ 335              		.code	16
+ 336              		.thumb_func
+ 338              	main:
+ 339              		@ args = 0, pretend = 0, frame = 0
+ 340              		@ frame_needed = 0, uses_anonymous_args = 0
+ 341 0000 70B5     		push	{r4, r5, r6, lr}
+ 342 0002 FFF7FEFF 		bl	BOARD_InitPins
+ 343 0006 FFF7FEFF 		bl	BOARD_InitBootClocks
+ 344 000a FFF7FEFF 		bl	clock_init
+ 345 000e FFF7FEFF 		bl	uart_init
+ 346 0012 1A48     		ldr	r0, .L38
+ 347 0014 FFF7FEFF 		bl	DbgConsole_Printf
+ 348 0018 8023     		movs	r3, #128
+ 349 001a 194C     		ldr	r4, .L38+4
+ 350 001c 5B00     		lsls	r3, r3, #1
+ 351 001e E26F     		ldr	r2, [r4, #124]
+ 352 0020 184D     		ldr	r5, .L38+8
+ 353 0022 1343     		orrs	r3, r2
+ 354 0024 E367     		str	r3, [r4, #124]
+ 355 0026 FFF7FEFF 		bl	SCT_Configuration
+ 356 002a 8023     		movs	r3, #128
+ 357 002c E26F     		ldr	r2, [r4, #124]
+ 358 002e 5B04     		lsls	r3, r3, #17
+ 359 0030 1343     		orrs	r3, r2
+ 360 0032 8E22     		movs	r2, #142
+ 361 0034 1021     		movs	r1, #16
+ 362 0036 E367     		str	r3, [r4, #124]
+ 363 0038 9200     		lsls	r2, r2, #2
+ 364 003a AB58     		ldr	r3, [r5, r2]
+ 365 003c 0320     		movs	r0, #3
+ 366 003e 8B43     		bics	r3, r1
+ 367 0040 AB50     		str	r3, [r5, r2]
+ 368 0042 FFF7FEFF 		bl	CLOCK_GetFreq
+ 369 0046 0100     		movs	r1, r0
+ 370 0048 0F48     		ldr	r0, .L38+12
+ 371 004a FFF7FEFF 		bl	ADC_DoSelfCalibration
+ 372 004e 0028     		cmp	r0, #0
+ 373 0050 12D0     		beq	.L34
+ 374 0052 0E48     		ldr	r0, .L38+16
+ 375              	.L37:
+ 376 0054 FFF7FEFF 		bl	DbgConsole_Printf
+ 377 0058 0D48     		ldr	r0, .L38+20
+ 378 005a FFF7FEFF 		bl	ADC_Configuration
+ 379 005e 0123     		movs	r3, #1
+ 380 0060 094A     		ldr	r2, .L38+12
+ 381 0062 516E     		ldr	r1, [r2, #100]
+ 382 0064 0B43     		orrs	r3, r1
+ 383 0066 5366     		str	r3, [r2, #100]
+ 384 0068 8022     		movs	r2, #128
+ 385 006a 0A4B     		ldr	r3, .L38+24
+ 386 006c 5202     		lsls	r2, r2, #9
+ 387 006e 1A60     		str	r2, [r3]
+ 388 0070 0948     		ldr	r0, .L38+28
+ 389 0072 FFF7FEFF 		bl	DbgConsole_Printf
+ 390              	.L36:
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 8
+
+
+ 391 0076 FEE7     		b	.L36
+ 392              	.L34:
+ 393 0078 0848     		ldr	r0, .L38+32
+ 394 007a EBE7     		b	.L37
+ 395              	.L39:
+ 396              		.align	2
+ 397              	.L38:
+ 398 007c 16000000 		.word	.LC6
+ 399 0080 04800440 		.word	1074036740
+ 400 0084 00800440 		.word	1074036736
+ 401 0088 00C00140 		.word	1073856512
+ 402 008c 2F000000 		.word	.LC8
+ 403 0090 00000000 		.word	.LANCHOR0
+ 404 0094 00E100E0 		.word	-536813312
+ 405 0098 61000000 		.word	.LC13
+ 406 009c 47000000 		.word	.LC10
+ 408              		.global	counter
+ 409              		.global	ADCResultStruct
+ 410              		.bss
+ 411              		.align	2
+ 412              		.set	.LANCHOR0,. + 0
+ 415              	ADCResultStruct:
+ 416 0000 00000000 		.space	32
+ 416      00000000 
+ 416      00000000 
+ 416      00000000 
+ 416      00000000 
+ 419              	counter:
+ 420 0020 00000000 		.space	4
+ 421              		.ident	"GCC: (Arm GNU Toolchain 13.2.rel1 (Build arm-13.7)) 13.2.1 20231009"
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc_tim_trig_modified.c
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:22     .text:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:28     .text:00000000 ADC0_SEQA_IRQHandler
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:86     .text:00000070 $d
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:93     .text:00000088 $t
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:99     .text:00000088 clock_init
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:139    .text:000000d0 $d
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:144    .text:000000e0 $t
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:150    .text:000000e0 ADC_Configuration
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:206    .text:00000148 $d
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:209    .text:00000150 $t
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:215    .text:00000150 uart_init
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:253    .text:00000198 $d
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:257    .text:000001a4 $t
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:263    .text:000001a4 SCT_Configuration
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:318    .text:0000020c $d
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:332    .text.startup:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:338    .text.startup:00000000 main
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:398    .text.startup:0000007c $d
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:419    .bss:00000020 counter
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:415    .bss:00000000 ADCResultStruct
+C:\Users\sansar\AppData\Local\Temp\ccOJYy4g.s:411    .bss:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_uidiv
+ADC_GetConvSeqAGlobalConversionResult
+ADC_GetChannelConversionResult
+DbgConsole_Printf
+CLOCK_InitSystemPll
+CLOCK_SetMainClkSrc
+SystemCoreClockUpdate
+ADC_Init
+ADC_SetConvSeqAConfig
+CLOCK_GetUart0ClkFreq
+USART_GetDefaultConfig
+USART_Init
+DbgConsole_Init
+SCTIMER_GetDefaultConfig
+SCTIMER_Init
+SCTIMER_CreateAndScheduleEvent
+SCTIMER_SetupOutputToggleAction
+BOARD_InitPins
+BOARD_InitBootClocks
+CLOCK_GetFreq
+ADC_DoSelfCalibration

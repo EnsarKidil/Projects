@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Plant HIL",
+			"path": "../../../../../Belgeler/PlatformIO/Projects/Plant HIL"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cmath": "c",
+			"*.tcc": "c"
+		}
+	}
+}

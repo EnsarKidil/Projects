@@ -1,0 +1,123 @@
+
+{% load static %}
+
+<nav  class="navbar navbar-expand-lg fixed-top navbar-dark navbar-custom" >
+
+
+
+  <div class="container-fluid">
+      <a href="{% url 'home' %}"><img width="88px" style="margin-top: 0px;" src="http://ituro.org/media/gallery/%C4%B0T%C3%9CRO%20Genel/photos/ituro_text.png"><span style="position: absolute; bottom: -2px; margin-left: 5px"></span></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Etkinlik Planı
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" style="color : black;" href="{% url 'eventapp:days' %}">Konuşmalar</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" style="color : black;" href="{% url 'eventapp:days_competetions' %}">Yarışmalar</a></li>
+          </ul>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'konusmaciapp:index' %}">Konuşmacılarımız</a>
+        </li>
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'robotapp:what2do' %}">İzlenmesi Gereken Adımlar</a>
+            </li>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'eventapp:photo' %}">Anı Bırak!</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'eventapp:opinion' %}">Görüş Belirt</a>
+        </li>
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'robotapp:index' %}">Robot Sıraları</a>
+            </li>
+
+
+      </ul>
+
+
+    </div>
+  </div>
+</nav>
+
+
+
+<script>
+
+$(window).scroll(function(){
+      if ($(this).scrollTop() > 200) {
+         $('#sticky').addClass('fixed');
+      } else {
+         $('#sticky').removeClass('fixed');
+      }
+    });
+
+
+</script>
+<style>
+
+
+
+
+
+.navbar-custom {
+              background-color: #2c3e50;
+
+              }
+
+
+              .navbar-custom .navbar-brand,
+              .navbar-custom .navbar-text {
+                  color: white;
+              }
+
+
+
+.navbar-expand-lg .navbar-nav .dropdown-menu li:first-child{
+	border-top:none;
+
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu li a{
+	padding:6px 20px;
+}
+
+
+.navbar-dark .navbar-nav .nav-item a{
+	font-size: 16px;
+	color:#fff;
+	padding:0 30px;
+}
+
+
+.navbar-brand img{
+	width: 100px;
+}
+
+
+/*nav after scrolling*/
+.navbar-dark.bg-primary.fixed{
+	background-color: rgba(118,156,191,.7) !important;
+    background-image: none;
+}
+.fixed .navbar-brand img{
+	width: 50px;
+	transition: width .65s ease-in-out;
+}
+.fixed .navbar-brand{
+	padding:0px;
+}
+
+
+
+/* navbar sonu */
+
+
+</style>

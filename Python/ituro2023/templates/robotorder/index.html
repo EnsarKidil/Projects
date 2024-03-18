@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="container-fluid">
+{% if not kategori == '-' %}
+<div class="row justify-content-center">
+
+
+        <ol class="list-group list-group-numbered">
+        <ol class="list-group ">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <span  > <b>Oynanan Kategori ve Proje Sırası </b></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <span style="width: 50%;" class="badge bg-primary rounded-pill align-items-center" > Kategori : <b style="color: black;">{{ kategori }}</b></span>
+                <span style="width:50%;" class="badge bg-success rounded-pill align-items-center" > Anlık Sıra : <b style="color: white;">{{ robot_sirasi }}</b></span>
+            </li>
+        </ol>
+           {% if robot1 or robot2 or robot3 %}
+                {% if robot1 %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ robot1.robot|truncatechars:35 }}</div>
+              {{ robot1.kategori }}
+            </div>
+            <span class="badge bg-primary rounded-pill">Sırası : {{ robot1.order }}</span>
+          </li>
+                {% endif %}
+        {% if robot2 %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ robot2.robot|truncatechars:35 }}</div>
+              {{ robot2.kategori }}
+            </div>
+            <span class="badge bg-primary rounded-pill">Sırası : {{ robot2.order }}</span>
+          </li>
+        {% endif %}
+            {% if robot3 %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ robot3.robot|truncatechars:35 }}</div>
+              {{ robot3.kategori }}
+            </div>
+            <span class="badge bg-primary rounded-pill">Sırası : {{ robot3.order }}</span>
+          </li>
+                {% endif %}
+               {% else %}
+               <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Kategori Sonlanmıştır</div>
+            </div>
+
+          </li>
+               {% endif %}
+        </ol>
+
+
+
+</div>
+{% else %}
+    <div class="row justify-content-center" style="text-align: center">
+        <h5>Şu an oynanan bir kategori bulunmamaktadır...</h5>
+        <h6>Kategori saati geldiğinde bu sayfadan anlık olarak yarışma sıralarını takip edebilirsiniz...</h6>
+    </div>
+{% endif %}
+{% if not kategori2 == '-' %}
+<div class="row justify-content-center" style="margin-top: 2%;">
+        <ol class="list-group list-group-numbered">
+            <ol class="list-group ">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <span  > <b>Oynanan Diğer Kategori ve Proje Sırası </b></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <span style="width: 50%;" class="badge bg-primary rounded-pill align-items-center" > Kategori : <b style="color: black;">{{ kategori2 }}</b></span>
+                    <span style="width:50%;" class="badge bg-success rounded-pill align-items-center" > Anlık Sıra : <b style="color: white;">{{ robot_sirasi2 }}</b></span>
+                </li>
+            </ol>
+        {% if robot4 or robot5 or robot6 %}
+        {% if robot4 %}
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">{{ robot4.robot|truncatechars:35 }}</div>
+                  {{ robot4.kategori }}
+                </div>
+                <span class="badge bg-primary rounded-pill">Sırası : {{ robot4.order }}</span>
+              </li>
+        {% endif %}
+            {% if robot5 %}
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">{{ robot5.robot|truncatechars:35 }}</div>
+                  {{ robot5.kategori }}
+                </div>
+                <span class="badge bg-primary rounded-pill">Sırası : {{ robot5.order }}</span>
+              </li>
+        {% endif %}
+            {% if robot6 %}
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">{{ robot6.robot|truncatechars:35 }}</div>
+                  {{ robot6.kategori }}
+                </div>
+                <span class="badge bg-primary rounded-pill">Sırası : {{ robot6.order }}</span>
+              </li>
+            {% endif %}
+            </ol>
+            {% else %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Kategori Sonlanmıştır</div>
+                </div>
+          </li>
+            {% endif %}
+</div>{% endif %}
+
+        <div class="row justify-content-center" style="margin-top: 3%;">
+            <form class="d-flex" role="search" method="GET" action="">
+              <input class="form-control me-3" id="form-control" type="search" name="q" placeholder="Robot Ara"  value="{{ request.GET.q }}" aria-label="Search">
+              <button class="btn btn-secondary " type="submit">Ara</button>
+            </form>
+        </div>
+
+    <div class="row justify-content-center">
+    {% if not robots %}
+    <h6 style="margin-top: 2%;">
+        <a style="color: #0a53be" href="http://sis.ituro.org/">sis.ituro.org</a> üzerinden kayıt olan robotlar etkinlik sırasında bu sayfada listelenecektir.
+    </h6>
+    {% else %}
+        {% for robot in robots%}
+
+                <div class="card" style="width: 21rem;height:11rem;margin: 3%;">
+                  <div class="card-body" style="margin-top: auto">
+                    <h5 class="card-title"><b>Robot İsmi :</b> {{ robot.robot}}</h5>
+                      <h5 class="card-title"><b>Kategorisi :</b> {{ robot.kategori}}</h5>
+                    <h5 class="card-text"><b>Sırası :</b> {{robot.order}}</h5>
+                  </div>
+                </div>
+
+        {%endfor%}
+    {% endif %}
+    </div>
+
+
+            <div  class="row">
+                <div class="col d-flex justify-content-center">
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if robots.has_previous %}
+                                <a href="?page={{ robots.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" type="button"  class="btn btn-outline-dark" >Geri</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ robots.number }}/{{ robots.paginator.num_pages }}
+                            </span>
+
+                            {% if robots.has_next %}
+                                <a href="?page={{ robots.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" type="button"  class="btn btn-outline-dark" >İleri</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+             </div>
+</div>
+
+
+
+
+
+{% endblock %}

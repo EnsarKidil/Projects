@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+
+     <div  class="container-fluid">
+        {% if duyuru %}
+            <div class="row justify-content-center p-3 mb-2 bg-{{ duyuru.tur }} {% if duyuru.tur == 'warning' %}text-black {% else %} text-white {% endif %} " >
+                {{ duyuru }}
+            </div>
+         {% endif %}
+        <div class="row justify-content-center" >
+
+
+            <div style="text-align: center;">
+                <a href="{% url 'eventapp:days_choice' %}" ><button  style="margin : 2%;height:100px; width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-primary">Hangi gün ne var?</button></a>
+                <br><br>
+                <a href="{% url 'robotapp:robot_choice' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Robotum var, yarışmacıyım ne yapmalıyım?</button></a>
+                <br><br>
+                <a href="{% url 'konusmaciapp:index' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Konuşmacılar</button></a>
+                <br><br>
+                <a href="{% url 'robotapp:index' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Robot Sıraları</button></a>
+                <br><br>
+                <a href="{% url 'robot_puanlari:home' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Robot Puanları</button></a>
+                <br><br>
+
+                <a href="{% url 'eventapp:photo' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Bir İTÜRO Anısı Paylaş</button></a>
+                <br><br>
+                <a href="{% url 'eventapp:opinion' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Görüş Belirt</button></a>
+
+                <br><br>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}

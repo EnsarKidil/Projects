@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>{{ competition.name }} Sıralama </h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sıra</th>
+                <th scope="col">Robot İsmi</th>
+                <th scope="col">ID</th>
+                <th scope="col">Puan</th>
+                <th scope="col">Süre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for robot in robots %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ robot.name }}</td>
+                    <td>{{ robot.robot_id }}</td>
+                    <td>{{ robot.score }}</td>
+                    <td>{{ robot.time }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

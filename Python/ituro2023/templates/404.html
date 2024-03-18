@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center" style="text-align: center">
+        <h4>Aradığın sayfayı bulamadık :(</h4>
+            <br>
+            <a href="{% url 'home' %}"><button   style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Anasayfaya dönmek ister misin?</button></a>
+                <br><br>
+    </div>
+</div>
+
+{% endblock %}

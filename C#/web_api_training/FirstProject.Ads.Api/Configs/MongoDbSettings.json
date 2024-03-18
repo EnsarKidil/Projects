@@ -1,0 +1,7 @@
+﻿{
+  "MongoDbSettings" : {
+    "connectionUri" : "mongodb connection uri",
+    "databaseName" :  "database name",
+    "collectionName" : "collection name"
+  }
+}

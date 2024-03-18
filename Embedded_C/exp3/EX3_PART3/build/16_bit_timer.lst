@@ -1,0 +1,541 @@
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 1
+
+
+   1              		.cpu cortex-m0plus
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"exp3.c"
+  14              		.text
+  15              		.section	.text.pint_intr_callback,"ax",%progbits
+  16              		.align	1
+  17              		.global	pint_intr_callback
+  18              		.syntax unified
+  19              		.code	16
+  20              		.thumb_func
+  22              	pint_intr_callback:
+  23              		@ args = 0, pretend = 0, frame = 8
+  24              		@ frame_needed = 0, uses_anonymous_args = 0
+  25 0000 07B5     		push	{r0, r1, r2, lr}
+  26 0002 6B46     		mov	r3, sp
+  27 0004 DA1D     		adds	r2, r3, #7
+  28 0006 0023     		movs	r3, #0
+  29              	.L10:
+  30 0008 1370     		strb	r3, [r2]
+  31 000a 1378     		ldrb	r3, [r2]
+  32 000c 632B     		cmp	r3, #99
+  33 000e 09D9     		bls	.L3
+  34 0010 0E4B     		ldr	r3, .L12
+  35 0012 1A78     		ldrb	r2, [r3]
+  36 0014 D0B2     		uxtb	r0, r2
+  37 0016 032A     		cmp	r2, #3
+  38 0018 0ED8     		bhi	.L1
+  39 001a 0D4A     		ldr	r2, .L12+4
+  40 001c FFF7FEFF 		bl	__gnu_thumb1_case_uqi
+  41              	.L6:
+  42 0020 06       		.byte	(.L9-.L6)/2
+  43 0021 0D       		.byte	(.L8-.L6)/2
+  44 0022 0F       		.byte	(.L7-.L6)/2
+  45 0023 11       		.byte	(.L5-.L6)/2
+  46              		.p2align 1
+  47              	.L3:
+  48 0024 1378     		ldrb	r3, [r2]
+  49 0026 0133     		adds	r3, r3, #1
+  50 0028 DBB2     		uxtb	r3, r3
+  51 002a EDE7     		b	.L10
+  52              	.L9:
+  53 002c 0A21     		movs	r1, #10
+  54              	.L11:
+  55 002e 1170     		strb	r1, [r2]
+  56 0030 1A78     		ldrb	r2, [r3]
+  57 0032 0132     		adds	r2, r2, #1
+  58 0034 D2B2     		uxtb	r2, r2
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 2
+
+
+  59 0036 1A70     		strb	r2, [r3]
+  60              	.L1:
+  61              		@ sp needed
+  62 0038 07BD     		pop	{r0, r1, r2, pc}
+  63              	.L8:
+  64 003a 1921     		movs	r1, #25
+  65 003c F7E7     		b	.L11
+  66              	.L7:
+  67 003e 6321     		movs	r1, #99
+  68 0040 F5E7     		b	.L11
+  69              	.L5:
+  70 0042 0021     		movs	r1, #0
+  71 0044 1170     		strb	r1, [r2]
+  72 0046 1970     		strb	r1, [r3]
+  73 0048 F6E7     		b	.L1
+  74              	.L13:
+  75 004a C046     		.align	2
+  76              	.L12:
+  77 004c 00000000 		.word	j.0
+  78 0050 00000000 		.word	PWM
+  80              		.section	.text.MRT0_IRQHandler,"ax",%progbits
+  81              		.align	1
+  82              		.global	MRT0_IRQHandler
+  83              		.syntax unified
+  84              		.code	16
+  85              		.thumb_func
+  87              	MRT0_IRQHandler:
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90 0000 70B5     		push	{r4, r5, r6, lr}
+  91 0002 254D     		ldr	r5, .L21
+  92 0004 2B78     		ldrb	r3, [r5]
+  93 0006 0133     		adds	r3, r3, #1
+  94 0008 DBB2     		uxtb	r3, r3
+  95 000a 2B70     		strb	r3, [r5]
+  96 000c 2B78     		ldrb	r3, [r5]
+  97 000e 322B     		cmp	r3, #50
+  98 0010 1ED1     		bne	.L15
+  99 0012 224C     		ldr	r4, .L21+4
+ 100 0014 2378     		ldrb	r3, [r4]
+ 101 0016 DEB2     		uxtb	r6, r3
+ 102 0018 012B     		cmp	r3, #1
+ 103 001a 1DD0     		beq	.L16
+ 104 001c 022E     		cmp	r6, #2
+ 105 001e 29D0     		beq	.L17
+ 106 0020 002E     		cmp	r6, #0
+ 107 0022 13D1     		bne	.L18
+ 108 0024 1E4B     		ldr	r3, .L21+8
+ 109 0026 0221     		movs	r1, #2
+ 110 0028 1A78     		ldrb	r2, [r3]
+ 111 002a 1E4B     		ldr	r3, .L21+12
+ 112 002c D2B2     		uxtb	r2, r2
+ 113 002e 1B68     		ldr	r3, [r3]
+ 114 0030 1D48     		ldr	r0, .L21+16
+ 115 0032 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 116 0036 3200     		movs	r2, r6
+ 117 0038 0121     		movs	r1, #1
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 3
+
+
+ 118 003a 1C4B     		ldr	r3, .L21+20
+ 119 003c 1B68     		ldr	r3, [r3]
+ 120              	.L20:
+ 121 003e 1A48     		ldr	r0, .L21+16
+ 122 0040 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 123 0044 2378     		ldrb	r3, [r4]
+ 124 0046 0133     		adds	r3, r3, #1
+ 125 0048 DBB2     		uxtb	r3, r3
+ 126              	.L19:
+ 127 004a 2370     		strb	r3, [r4]
+ 128              	.L18:
+ 129 004c 0023     		movs	r3, #0
+ 130 004e 2B70     		strb	r3, [r5]
+ 131              	.L15:
+ 132 0050 0122     		movs	r2, #1
+ 133              		@ sp needed
+ 134 0052 174B     		ldr	r3, .L21+24
+ 135 0054 DA60     		str	r2, [r3, #12]
+ 136 0056 70BD     		pop	{r4, r5, r6, pc}
+ 137              	.L16:
+ 138 0058 114B     		ldr	r3, .L21+8
+ 139 005a 0321     		movs	r1, #3
+ 140 005c 1A78     		ldrb	r2, [r3]
+ 141 005e 154B     		ldr	r3, .L21+28
+ 142 0060 D2B2     		uxtb	r2, r2
+ 143 0062 1B68     		ldr	r3, [r3]
+ 144 0064 1048     		ldr	r0, .L21+16
+ 145 0066 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 146 006a 0E4B     		ldr	r3, .L21+12
+ 147 006c 0022     		movs	r2, #0
+ 148 006e 0221     		movs	r1, #2
+ 149 0070 1B68     		ldr	r3, [r3]
+ 150 0072 E4E7     		b	.L20
+ 151              	.L17:
+ 152 0074 0A4B     		ldr	r3, .L21+8
+ 153 0076 0121     		movs	r1, #1
+ 154 0078 1A78     		ldrb	r2, [r3]
+ 155 007a 0C4B     		ldr	r3, .L21+20
+ 156 007c 0A48     		ldr	r0, .L21+16
+ 157 007e 1B68     		ldr	r3, [r3]
+ 158 0080 D2B2     		uxtb	r2, r2
+ 159 0082 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 160 0086 0B4B     		ldr	r3, .L21+28
+ 161 0088 0022     		movs	r2, #0
+ 162 008a 1B68     		ldr	r3, [r3]
+ 163 008c 0321     		movs	r1, #3
+ 164 008e 0648     		ldr	r0, .L21+16
+ 165 0090 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 166 0094 0023     		movs	r3, #0
+ 167 0096 D8E7     		b	.L19
+ 168              	.L22:
+ 169              		.align	2
+ 170              	.L21:
+ 171 0098 00000000 		.word	counter.2
+ 172 009c 00000000 		.word	i.1
+ 173 00a0 00000000 		.word	PWM
+ 174 00a4 00000000 		.word	event2
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 4
+
+
+ 175 00a8 00400050 		.word	1342193664
+ 176 00ac 00000000 		.word	event1
+ 177 00b0 00400040 		.word	1073758208
+ 178 00b4 00000000 		.word	event3
+ 180              		.section	.text.clock_init,"ax",%progbits
+ 181              		.align	1
+ 182              		.global	clock_init
+ 183              		.syntax unified
+ 184              		.code	16
+ 185              		.thumb_func
+ 187              	clock_init:
+ 188              		@ args = 0, pretend = 0, frame = 8
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190 0000 8E23     		movs	r3, #142
+ 191 0002 73B5     		push	{r0, r1, r4, r5, r6, lr}
+ 192 0004 0125     		movs	r5, #1
+ 193              		@ sp needed
+ 194 0006 0221     		movs	r1, #2
+ 195 0008 0026     		movs	r6, #0
+ 196 000a 0F4C     		ldr	r4, .L24
+ 197 000c 9B00     		lsls	r3, r3, #2
+ 198 000e E258     		ldr	r2, [r4, r3]
+ 199 0010 6846     		mov	r0, sp
+ 200 0012 AA43     		bics	r2, r5
+ 201 0014 E250     		str	r2, [r4, r3]
+ 202 0016 E258     		ldr	r2, [r4, r3]
+ 203 0018 8A43     		bics	r2, r1
+ 204 001a E250     		str	r2, [r4, r3]
+ 205 001c 0B4B     		ldr	r3, .L24+4
+ 206 001e 1E60     		str	r6, [r3]
+ 207 0020 6B46     		mov	r3, sp
+ 208 0022 1E71     		strb	r6, [r3, #4]
+ 209 0024 0A4B     		ldr	r3, .L24+8
+ 210 0026 0093     		str	r3, [sp]
+ 211 0028 FFF7FEFF 		bl	CLOCK_InitSystemPll
+ 212 002c C020     		movs	r0, #192
+ 213 002e 8000     		lsls	r0, r0, #2
+ 214 0030 FFF7FEFF 		bl	CLOCK_SetMainClkSrc
+ 215 0034 FF22     		movs	r2, #255
+ 216 0036 074B     		ldr	r3, .L24+12
+ 217 0038 1E60     		str	r6, [r3]
+ 218 003a A36F     		ldr	r3, [r4, #120]
+ 219 003c 9343     		bics	r3, r2
+ 220 003e 1D43     		orrs	r5, r3
+ 221 0040 A567     		str	r5, [r4, #120]
+ 222 0042 FFF7FEFF 		bl	SystemCoreClockUpdate
+ 223 0046 73BD     		pop	{r0, r1, r4, r5, r6, pc}
+ 224              	.L25:
+ 225              		.align	2
+ 226              	.L24:
+ 227 0048 00800440 		.word	1074036736
+ 228 004c 40800440 		.word	1074036800
+ 229 0050 00879303 		.word	60000000
+ 230 0054 E0800440 		.word	1074036960
+ 232              		.section	.text.startup.main,"ax",%progbits
+ 233              		.align	1
+ 234              		.global	main
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 5
+
+
+ 235              		.syntax unified
+ 236              		.code	16
+ 237              		.thumb_func
+ 239              	main:
+ 240              		@ args = 0, pretend = 0, frame = 40
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 242 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 243 0002 8DB0     		sub	sp, sp, #52
+ 244 0004 FFF7FEFF 		bl	clock_init
+ 245 0008 8023     		movs	r3, #128
+ 246 000a 434C     		ldr	r4, .L28
+ 247 000c DB02     		lsls	r3, r3, #11
+ 248 000e E26F     		ldr	r2, [r4, #124]
+ 249 0010 0025     		movs	r5, #0
+ 250 0012 1343     		orrs	r3, r2
+ 251 0014 8022     		movs	r2, #128
+ 252 0016 E367     		str	r3, [r4, #124]
+ 253 0018 E36F     		ldr	r3, [r4, #124]
+ 254 001a D200     		lsls	r2, r2, #3
+ 255 001c 1343     		orrs	r3, r2
+ 256 001e E367     		str	r3, [r4, #124]
+ 257 0020 FFF7FEFF 		bl	InitPins
+ 258 0024 8023     		movs	r3, #128
+ 259 0026 E26F     		ldr	r2, [r4, #124]
+ 260 0028 5B00     		lsls	r3, r3, #1
+ 261 002a 1343     		orrs	r3, r2
+ 262 002c E367     		str	r3, [r4, #124]
+ 263 002e 3B4C     		ldr	r4, .L28+4
+ 264 0030 09A8     		add	r0, sp, #36
+ 265 0032 FFF7FEFF 		bl	SCTIMER_GetDefaultConfig
+ 266 0036 09A9     		add	r1, sp, #36
+ 267 0038 2000     		movs	r0, r4
+ 268 003a FFF7FEFF 		bl	SCTIMER_Init
+ 269 003e 0223     		movs	r3, #2
+ 270 0040 02A9     		add	r1, sp, #8
+ 271 0042 FF33     		adds	r3, r3, #255
+ 272 0044 0B82     		strh	r3, [r1, #16]
+ 273 0046 364E     		ldr	r6, .L28+8
+ 274 0048 364B     		ldr	r3, .L28+12
+ 275 004a 8D74     		strb	r5, [r1, #18]
+ 276 004c 0293     		str	r3, [sp, #8]
+ 277 004e 0193     		str	r3, [sp, #4]
+ 278 0050 06A9     		add	r1, sp, #24
+ 279 0052 0122     		movs	r2, #1
+ 280 0054 2000     		movs	r0, r4
+ 281 0056 344B     		ldr	r3, .L28+16
+ 282 0058 0096     		str	r6, [sp]
+ 283 005a FFF7FEFF 		bl	SCTIMER_SetupPwm
+ 284 005e 8123     		movs	r3, #129
+ 285 0060 02A9     		add	r1, sp, #8
+ 286 0062 5B00     		lsls	r3, r3, #1
+ 287 0064 8B82     		strh	r3, [r1, #20]
+ 288 0066 314B     		ldr	r3, .L28+20
+ 289 0068 8D75     		strb	r5, [r1, #22]
+ 290 006a 0393     		str	r3, [sp, #12]
+ 291 006c 0193     		str	r3, [sp, #4]
+ 292 006e 07A9     		add	r1, sp, #28
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 6
+
+
+ 293 0070 0122     		movs	r2, #1
+ 294 0072 2000     		movs	r0, r4
+ 295 0074 2C4B     		ldr	r3, .L28+16
+ 296 0076 0096     		str	r6, [sp]
+ 297 0078 FFF7FEFF 		bl	SCTIMER_SetupPwm
+ 298 007c 0423     		movs	r3, #4
+ 299 007e 2C4F     		ldr	r7, .L28+24
+ 300 0080 02A9     		add	r1, sp, #8
+ 301 0082 FF33     		adds	r3, r3, #255
+ 302 0084 0B83     		strh	r3, [r1, #24]
+ 303 0086 8D76     		strb	r5, [r1, #26]
+ 304 0088 0122     		movs	r2, #1
+ 305 008a 08A9     		add	r1, sp, #32
+ 306 008c 2000     		movs	r0, r4
+ 307 008e 264B     		ldr	r3, .L28+16
+ 308 0090 0197     		str	r7, [sp, #4]
+ 309 0092 0096     		str	r6, [sp]
+ 310 0094 FFF7FEFF 		bl	SCTIMER_SetupPwm
+ 311 0098 0422     		movs	r2, #4
+ 312 009a 6368     		ldr	r3, [r4, #4]
+ 313 009c 2000     		movs	r0, r4
+ 314 009e 9343     		bics	r3, r2
+ 315 00a0 6360     		str	r3, [r4, #4]
+ 316 00a2 2A00     		movs	r2, r5
+ 317 00a4 3B68     		ldr	r3, [r7]
+ 318 00a6 0321     		movs	r1, #3
+ 319 00a8 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 320 00ac 039B     		ldr	r3, [sp, #12]
+ 321 00ae 2A00     		movs	r2, r5
+ 322 00b0 2000     		movs	r0, r4
+ 323 00b2 0221     		movs	r1, #2
+ 324 00b4 1B68     		ldr	r3, [r3]
+ 325 00b6 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 326 00ba 1E4B     		ldr	r3, .L28+28
+ 327 00bc 2000     		movs	r0, r4
+ 328 00be 1A78     		ldrb	r2, [r3]
+ 329 00c0 029B     		ldr	r3, [sp, #8]
+ 330 00c2 0121     		movs	r1, #1
+ 331 00c4 1B68     		ldr	r3, [r3]
+ 332 00c6 D2B2     		uxtb	r2, r2
+ 333 00c8 FFF7FEFF 		bl	SCTIMER_UpdatePwmDutycycle
+ 334 00cc 2900     		movs	r1, r5
+ 335 00ce 1A4A     		ldr	r2, .L28+32
+ 336 00d0 1A48     		ldr	r0, .L28+36
+ 337 00d2 FFF7FEFF 		bl	SYSCON_AttachSignal
+ 338 00d6 1A48     		ldr	r0, .L28+40
+ 339 00d8 FFF7FEFF 		bl	PINT_Init
+ 340 00dc 194C     		ldr	r4, .L28+44
+ 341 00de 0122     		movs	r2, #1
+ 342 00e0 194B     		ldr	r3, .L28+48
+ 343 00e2 2900     		movs	r1, r5
+ 344 00e4 1648     		ldr	r0, .L28+40
+ 345 00e6 FFF7FEFF 		bl	PINT_PinInterruptConfig
+ 346 00ea 2900     		movs	r1, r5
+ 347 00ec 1448     		ldr	r0, .L28+40
+ 348 00ee FFF7FEFF 		bl	PINT_EnableCallbackByIndex
+ 349 00f2 2000     		movs	r0, r4
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 7
+
+
+ 350 00f4 05A9     		add	r1, sp, #20
+ 351 00f6 FFF7FEFF 		bl	MRT_Init
+ 352 00fa 0622     		movs	r2, #6
+ 353 00fc A368     		ldr	r3, [r4, #8]
+ 354 00fe 9343     		bics	r3, r2
+ 355 0100 A360     		str	r3, [r4, #8]
+ 356 0102 0123     		movs	r3, #1
+ 357 0104 A268     		ldr	r2, [r4, #8]
+ 358 0106 1343     		orrs	r3, r2
+ 359 0108 A360     		str	r3, [r4, #8]
+ 360 010a 8022     		movs	r2, #128
+ 361 010c 0F4B     		ldr	r3, .L28+52
+ 362 010e D200     		lsls	r2, r2, #3
+ 363 0110 1A60     		str	r2, [r3]
+ 364 0112 0F4B     		ldr	r3, .L28+56
+ 365 0114 2360     		str	r3, [r4]
+ 366              	.L27:
+ 367 0116 FEE7     		b	.L27
+ 368              	.L29:
+ 369              		.align	2
+ 370              	.L28:
+ 371 0118 04800440 		.word	1074036740
+ 372 011c 00400050 		.word	1342193664
+ 373 0120 80C3C901 		.word	30000000
+ 374 0124 00000000 		.word	event1
+ 375 0128 10270000 		.word	10000
+ 376 012c 00000000 		.word	event2
+ 377 0130 00000000 		.word	event3
+ 378 0134 00000000 		.word	PWM
+ 379 0138 12008017 		.word	394264594
+ 380 013c 00800440 		.word	1074036736
+ 381 0140 004000A0 		.word	-1610596352
+ 382 0144 00400040 		.word	1073758208
+ 383 0148 00000000 		.word	pint_intr_callback
+ 384 014c 00E100E0 		.word	-536813312
+ 385 0150 C0270900 		.word	600000
+ 387              		.section	.text.delay_ms,"ax",%progbits
+ 388              		.align	1
+ 389              		.global	delay_ms
+ 390              		.syntax unified
+ 391              		.code	16
+ 392              		.thumb_func
+ 394              	delay_ms:
+ 395              		@ args = 0, pretend = 0, frame = 0
+ 396              		@ frame_needed = 0, uses_anonymous_args = 0
+ 397              		@ link register save eliminated.
+ 398 0000 024B     		ldr	r3, .L33
+ 399 0002 1860     		str	r0, [r3]
+ 400              	.L31:
+ 401 0004 1A68     		ldr	r2, [r3]
+ 402 0006 002A     		cmp	r2, #0
+ 403 0008 FCD1     		bne	.L31
+ 404              		@ sp needed
+ 405 000a 7047     		bx	lr
+ 406              	.L34:
+ 407              		.align	2
+ 408              	.L33:
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 8
+
+
+ 409 000c 00000000 		.word	delaytime
+ 411              		.section	.text.SysTick_Handler,"ax",%progbits
+ 412              		.align	1
+ 413              		.global	SysTick_Handler
+ 414              		.syntax unified
+ 415              		.code	16
+ 416              		.thumb_func
+ 418              	SysTick_Handler:
+ 419              		@ args = 0, pretend = 0, frame = 0
+ 420              		@ frame_needed = 0, uses_anonymous_args = 0
+ 421              		@ link register save eliminated.
+ 422 0000 034B     		ldr	r3, .L40
+ 423 0002 1A68     		ldr	r2, [r3]
+ 424 0004 002A     		cmp	r2, #0
+ 425 0006 02D0     		beq	.L35
+ 426 0008 1A68     		ldr	r2, [r3]
+ 427 000a 013A     		subs	r2, r2, #1
+ 428 000c 1A60     		str	r2, [r3]
+ 429              	.L35:
+ 430              		@ sp needed
+ 431 000e 7047     		bx	lr
+ 432              	.L41:
+ 433              		.align	2
+ 434              	.L40:
+ 435 0010 00000000 		.word	delaytime
+ 437              		.section	.bss.j.0,"aw",%nobits
+ 440              	j.0:
+ 441 0000 00       		.space	1
+ 442              		.section	.bss.i.1,"aw",%nobits
+ 445              	i.1:
+ 446 0000 00       		.space	1
+ 447              		.section	.bss.counter.2,"aw",%nobits
+ 450              	counter.2:
+ 451 0000 00       		.space	1
+ 452              		.global	PWM
+ 453              		.section	.data.PWM,"aw"
+ 456              	PWM:
+ 457 0000 05       		.byte	5
+ 458              		.global	event3
+ 459              		.section	.bss.event3,"aw",%nobits
+ 460              		.align	2
+ 463              	event3:
+ 464 0000 00000000 		.space	4
+ 465              		.global	event2
+ 466              		.section	.bss.event2,"aw",%nobits
+ 467              		.align	2
+ 470              	event2:
+ 471 0000 00000000 		.space	4
+ 472              		.global	event1
+ 473              		.section	.bss.event1,"aw",%nobits
+ 474              		.align	2
+ 477              	event1:
+ 478 0000 00000000 		.space	4
+ 479              		.global	delaytime
+ 480              		.section	.bss.delaytime,"aw",%nobits
+ 481              		.align	2
+ 484              	delaytime:
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 9
+
+
+ 485 0000 00000000 		.space	4
+ 486              		.ident	"GCC: (Arm GNU Toolchain 13.2.rel1 (Build arm-13.7)) 13.2.1 20231009"
+ARM GAS  C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 exp3.c
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:16     .text.pint_intr_callback:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:22     .text.pint_intr_callback:00000000 pint_intr_callback
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:42     .text.pint_intr_callback:00000020 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:46     .text.pint_intr_callback:00000024 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:77     .text.pint_intr_callback:0000004c $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:440    .bss.j.0:00000000 j.0
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:456    .data.PWM:00000000 PWM
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:81     .text.MRT0_IRQHandler:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:87     .text.MRT0_IRQHandler:00000000 MRT0_IRQHandler
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:171    .text.MRT0_IRQHandler:00000098 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:450    .bss.counter.2:00000000 counter.2
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:445    .bss.i.1:00000000 i.1
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:470    .bss.event2:00000000 event2
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:477    .bss.event1:00000000 event1
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:463    .bss.event3:00000000 event3
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:181    .text.clock_init:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:187    .text.clock_init:00000000 clock_init
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:227    .text.clock_init:00000048 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:233    .text.startup.main:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:239    .text.startup.main:00000000 main
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:371    .text.startup.main:00000118 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:388    .text.delay_ms:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:394    .text.delay_ms:00000000 delay_ms
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:409    .text.delay_ms:0000000c $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:484    .bss.delaytime:00000000 delaytime
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:412    .text.SysTick_Handler:00000000 $t
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:418    .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:435    .text.SysTick_Handler:00000010 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:441    .bss.j.0:00000000 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:446    .bss.i.1:00000000 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:451    .bss.counter.2:00000000 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:460    .bss.event3:00000000 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:467    .bss.event2:00000000 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:474    .bss.event1:00000000 $d
+C:\Users\sansar\AppData\Local\Temp\ccMikwJa.s:481    .bss.delaytime:00000000 $d
+
+UNDEFINED SYMBOLS
+__gnu_thumb1_case_uqi
+SCTIMER_UpdatePwmDutycycle
+CLOCK_InitSystemPll
+CLOCK_SetMainClkSrc
+SystemCoreClockUpdate
+InitPins
+SCTIMER_GetDefaultConfig
+SCTIMER_Init
+SCTIMER_SetupPwm
+SYSCON_AttachSignal
+PINT_Init
+PINT_PinInterruptConfig
+PINT_EnableCallbackByIndex
+MRT_Init

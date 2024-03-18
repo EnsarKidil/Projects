@@ -1,0 +1,130 @@
+
+
+.navbar-custom {
+              background-color: black;
+              }
+
+
+              .navbar-custom .navbar-brand,
+              .navbar-custom .navbar-text {
+                  color: white;
+              }
+
+
+
+
+
+
+.navbar-expand-lg .navbar-nav .dropdown-menu{
+	background-color: #000000;
+	margin-top: 22px;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu li{
+	border-top:solid 1px #ffffff;
+	font-size: 1px;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu li:first-child{
+	border-top:none;
+
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu li a{
+	padding:6px 20px;
+}
+.dropdown-item:hover {
+
+	background-color: rgb(117, 117, 117);
+}
+
+
+.navbar-dark .navbar-nav .nav-item a{
+	font-size: 20px;
+	color:#fff;
+	padding:0 30px;
+}
+.navbar-dark .navbar-nav .nav-item.active a{
+	font-size: 20px;
+	color:#e7b2a3;
+}
+
+
+
+.navbar-brand img{
+	width: 100px;
+}
+
+.navbar-dark.bg-primary{
+	background-color: rgba(118,156,191,0.8) !important;
+    background-image: none;
+}
+
+/*nav after scrolling*/
+.navbar-dark.bg-primary.fixed{
+	background-color: rgba(118,156,191,.7) !important;
+    background-image: none;
+}
+.fixed .navbar-brand img{
+	width: 50px;
+	transition: width .65s ease-in-out;
+}
+.fixed .navbar-brand{
+	padding:0px;
+}
+
+
+
+/* navbar sonu */
+
+
+
+
+.hero{
+	/* display: table;
+	width: 100%;
+	height: 80vh;
+	min-height: 600px;*/
+	background: url('https://via.placeholder.com/1800x1200');
+    background-attachment:fixed;
+    background-repeat:no-repeat !important;
+	background-position: center center;
+	background-size: cover !important;
+}
+.hero-neg{
+	margin-top:-200px;
+
+	height:960px;
+}
+.hero-neg .hero-content{
+ padding-top:200px;
+}
+
+.hero h1{
+	font-family: "Abhaya Libre", serif;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 1.5;
+	letter-spacing: -0.0px;
+	text-align: center;
+	text-transform: none;
+	font-style: normal;
+	text-shadow: 1px 1px 0px #050100;
+	color:#fff;
+}
+
+.hero h2{
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-weight: 700;
+	font-size: 55px;
+	text-align: center;
+	text-shadow: 1px 1px 0px #0a0600;
+	color:#fff;
+}
+
+
+
+.home-hero {
+	background-image: url('https://via.placeholder.com/1800x1200');
+}
+
+.home-hero .hero-content .container{
+	height:760px;
+}

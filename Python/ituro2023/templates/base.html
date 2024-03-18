@@ -1,0 +1,195 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}İTÜRO 2023{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+</head>
+<body>
+
+{% include 'messages.html' %}
+{% include 'navbar.html' %}
+
+
+{% block body %}
+
+{% endblock %}
+<a href="javascript:history.back()" style="margin-top: 2%;" class="btn btn-secondary">&#8592;  Geri Dön</a>
+<div class="wrapper">
+
+                    <a style="color:black;" href="https://www.facebook.com/ituro/">
+                          <div class="icon facebook">
+                            <div class="tooltip">Facebook</div>
+                            <span><i class="fa fa-facebook-f"></i></span>
+                          </div>
+                        </a>
+
+                    <a style="color:black;" href="https://twitter.com/ituroorg">
+                  <div class="icon twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class="fa fa-twitter"></i></span>
+                  </div>
+                        </a>
+
+
+                    <a style="color:black;" href="https://www.instagram.com/ituroorg/">
+                          <div class="icon instagram">
+                            <div class="tooltip">Instagram</div>
+                            <span><i class="fa fa-instagram"></i></span>
+                          </div>
+                        </a>
+
+                    <a style="color:black;" href="https://www.youtube.com/user/ITURobotOlympics">
+                      <div class="icon youtube">
+                        <div class="tooltip">Youtube</div>
+                        <span><i class="fa fa-youtube"></i></span>
+                      </div>
+                    </a>
+
+                    <a style="color:black;" href="https://www.linkedin.com/company/ituroorg/mycompany/">
+                        <div class="icon linkedin">
+                        <div class="tooltip">Linkedin</div>
+                        <span><i class="fa fa-linkedin"></i></span>
+                      </div>
+                        </a>
+                </div>
+
+{% include 'footer.html' %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+</body>
+<style>
+    body {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  place-items: center;
+  background: linear-gradient(315deg, #ffffff, #d7e1ec);
+}
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus,
+*:active {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+
+
+.wrapper {
+  display: inline-flex;
+}
+
+.wrapper .icon {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 15px;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background-color: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .facebook:hover,
+.wrapper .facebook:hover .tooltip,
+.wrapper .facebook:hover .tooltip::before {
+  background-color: #3b5999;
+  color: #ffffff;
+}
+
+.wrapper .twitter:hover,
+.wrapper .twitter:hover .tooltip,
+.wrapper .twitter:hover .tooltip::before {
+  background-color: #46c1f6;
+  color: #ffffff;
+}
+
+.wrapper .instagram:hover,
+.wrapper .instagram:hover .tooltip,
+.wrapper .instagram:hover .tooltip::before {
+  background-color: #e1306c;
+  color: #ffffff;
+}
+
+
+.wrapper .youtube:hover,
+.wrapper .youtube:hover .tooltip,
+.wrapper .youtube:hover .tooltip::before {
+  background-color: #de463b;
+  color: #ffffff;
+}
+
+.wrapper .linkedin:hover,
+.wrapper .linkedin:hover .tooltip,
+.wrapper .linkedin:hover .tooltip::before {
+  background-color: #0e76a8;
+  color: #ffffff;
+}
+</style>
+</html>

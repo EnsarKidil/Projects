@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        {% for konusmaci in konusmacilar%}
+        <div class="card" style="width: 21rem; height: 33rem;margin: 3%;">
+          <img  class="card-img-top" src="{{ konusmaci.image.url }}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ konusmaci.konusmaci}}</h5>
+            <p class="card-text">{{konusmaci.who|safe|truncatechars:130}}</p>
+            <div style="margin-top: 10%;position: absolute;bottom:15px; ">
+                <button style="background-color: #495f74;border-color: white;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{konusmaci.id}}">
+                  Daha fazlası...
+                </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal{{konusmaci.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{konusmaci.konusmaci}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                {{konusmaci.who|safe}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+    </div>
+
+            <div  class="row">
+                <div class="col d-flex justify-content-center">
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if konusmacilar.has_previous %}
+                                <a href="?page={{ konusmacilar.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" type="button"  class="btn btn-outline-dark" >Geri</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ konusmacilar.number }}/{{ konusmacilar.paginator.num_pages }}
+                            </span>
+
+                            {% if konusmacilar.has_next %}
+                                <a href="?page={{ konusmacilar.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" type="button"  class="btn btn-outline-dark" >İleri</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+             </div>
+
+
+
+</div>
+
+
+{% endblock %}

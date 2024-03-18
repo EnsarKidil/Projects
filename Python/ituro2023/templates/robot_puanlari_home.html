@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    <h2>Robot Puanları</h2>
+     <div class="row justify-content-center" >
+     <div style="text-align: center;">
+        <a href="{% url 'robot_puanlari:competition_detail' 1 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Çizgi İzleyen: Cumhuriyet Yolu</button></a>
+        <a href="{% url 'robot_puanlari:competition_detail' 2 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Senaryo: Arama Kurtarma</button></a>
+        <a href="{% url 'robot_puanlari:competition_detail' 3 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Renk Seçen</button></a>
+        <a href="{% url 'robot_puanlari:competition_detail' 4 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Trafik: İTÜ Ayazağa</button></a>
+        <a href="{% url 'robot_puanlari:competition_detail' 5 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Lojistik</button></a>
+        <a href="{% url 'robot_puanlari:competition_detail' 6 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">Pul Toplayan</button></a>
+        <a href="{% url 'robot_puanlari:competition_detail' 7 %}"><button style="margin : 2%;height:100px;width: 80%;background-color: #495f74;border-color: white;" type="button" class="btn btn-success">AlgoLAB</button></a>
+    </div>
+     </div>
+{% endblock %}
